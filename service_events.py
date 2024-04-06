@@ -1,3 +1,4 @@
+import uuid
 from datetime import date
 from googleapiclient.discovery import build
 from compose_events import composeEvents
@@ -14,6 +15,7 @@ def gettingCurrentEvents(creds):
   events_result = (
     service.events().list(
           calendarId="primary",
+          # etag="cardiology-assistant",
           timeMax=str(date.today())+"T23:59:00.00-06:00",
           timeMin=str(date.today())+"T00:00:00.00-06:00",
           # timeZone= 'America/Costa_Rica',
@@ -23,12 +25,15 @@ def gettingCurrentEvents(creds):
   )
   
   # Destructuring the dictionary and getting items props
-  events = events_result.get("items")
+  allEvents = events_result.get("items")
   
-  if not events:
-    return []
+  cardiologyEvents = []
   
-  return events
+  for event in allEvents :
+    if "Cardiology Assistant" in event.get("summary"):
+      cardiologyEvents.append(event)
+  
+  return cardiologyEvents
 
 
 def creatingEvents(creds, body):
@@ -37,7 +42,7 @@ def creatingEvents(creds, body):
   
   result = json.loads(composeEvents(body))
   
-  # print(result)
+  print(result)
     
   suggestionsFood = result.get("suggestions").get("food")
   suggestionsExercises = result.get("suggestions").get("exercise")
@@ -52,12 +57,13 @@ def creatingEvents(creds, body):
   
   for exercise in suggestionsExercises:
     event = {
-      'summary': exercise.get("title"),
-      'description': exercise.get("why"),
+      'summary': "Cardiology Assistant 🫀 - Exercising Time",
+      'description':f'<h3>{exercise.get("title")}</h3><p>{exercise.get("why")}</p>',
       'start': {
         'dateTime': str(date.today())+'T'+ exercise.get("hour")+':00-06:00',
         'timeZone': 'America/Costa_Rica',
       },
+      'colorId':"3",
       'end': {
         'dateTime': str(date.today())+'T'+ exercise.get("hour")+':00-06:00',
         'timeZone': 'America/Costa_Rica',
@@ -70,8 +76,9 @@ def creatingEvents(creds, body):
   
   for food in suggestionsFood:
     event = {
-      'summary': food.get("title"),
-      'description': food.get("why"),
+      'summary': "Cardiology Assistant 🫀 - Eating Time",
+      'description':f'<h3>{food.get("title")}</h3><p>{food.get("why")}</p>',
+      'colorId': "9",
       'start': {
         'dateTime': str(date.today())+'T'+food.get("hour")+':00-06:00',
         'timeZone': 'America/Costa_Rica',

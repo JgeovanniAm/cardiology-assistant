@@ -21,14 +21,14 @@ def composeEvents(value):
                 Normal value: gretear than 60 but less than 100
             3. The suggestions for daily routines including food and exercise to improve and maintain a normal heart rate.
                 a. What kind food (a dish) we can consume.
-                    a1. breakfast -> required
-                    a2. snack -> required
-                    a3. lunch -> required
-                    a4. snack
-                    a5. dinner -> required
+                    a1. breakfast -> is required
+                    a2. snack
+                    a3. lunch -> is required
+                    a4. snack -> is required
+                    a5. dinner -> is required
                 b.  What kind of exercises should we do. 
-                    b1. Mornings -> required
-                    b2. Evenings  -> required
+                    b1. Mornings -> is required
+                    b2. Evenings  -> is required
 
             4. Please give me those suggestions in JSON format like this response:
                 {

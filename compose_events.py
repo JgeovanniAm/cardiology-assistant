@@ -19,7 +19,7 @@ def composeEvents(value):
 
             1. Provide recommendations based on the patient's resting heart rate value only when the patient's resting heart rate value is outside of the normal value:
                 Normal value: gretear than 60 but less than 100
-            3. The suggestions for daily routines including food and exercise to improve and maintain a normal heart rate.
+            2. The suggestions for daily routines including food and exercise to improve and maintain a normal heart rate.
                 a. What kind food (a dish) we can consume.
                     a1. breakfast -> is required
                     a2. snack
@@ -30,7 +30,7 @@ def composeEvents(value):
                     b1. Mornings -> is required
                     b2. Evenings  -> is required
 
-            4. Please give me those suggestions in JSON format like this response:
+            3. Please give me those suggestions in JSON format like this response:
                 {
                     "suggestions": {
                         "food": [
@@ -59,9 +59,9 @@ def composeEvents(value):
                     }
                 }
 
-            8. Please clarify and give a very detailed explanation about the recommendations of why we should do that.
+            7. Please clarify and give a very detailed explanation about the recommendations of why we should do that.
 
-            9. Ensure consistency in spelling and grammar throughout the prompt.
+            8. Ensure consistency in spelling and grammar throughout the prompt.
 
             Please take into account. your response should be in JSON format with no line breaks and minified. 
          """},

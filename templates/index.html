@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA</title>
+</head>
+
+<body>
+    <button>connect bluetooth</button>
+</body>
+
+<script>
+
+    document.querySelector(button).addEventListener('pointerup', function (event) {
+        navigator.bluetooth.requestDevice({
+            filters: [{
+                name: 'Francois robot'
+            }],
+            optionalServices: ['battery_service'] // Required to access service later.
+        })
+            .then(device => { console.log(device) })
+            .catch(error => { console.error(error); });
+    });
+
+</script>
+
+</html>

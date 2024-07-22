@@ -22,7 +22,6 @@ Setup pip
   source .venv/bin/activate
 ```
 
-
 Install dependencies
 
 ```bash
@@ -34,4 +33,8 @@ Start the server
 ```bash
   flask --app app run
 ```
+or
 
+```bash
+  flask run --cert=adhoc
+```

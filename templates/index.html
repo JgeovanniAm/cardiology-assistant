@@ -8,22 +8,48 @@
 </head>
 
 <body>
-    <button>connect bluetooth</button>
+    <button>connect</button>
 </body>
 
-<script>
-
-    document.querySelector(button).addEventListener('pointerup', function (event) {
-        navigator.bluetooth.requestDevice({
-            filters: [{
-                name: 'Francois robot'
-            }],
-            optionalServices: ['battery_service'] // Required to access service later.
-        })
-            .then(device => { console.log(device) })
-            .catch(error => { console.error(error); });
-    });
-
+<script type="text/javascript">
+    var userProfile = {{ profile|safe }};
+    console.log(userProfile);
+    // You can now use userProfile in your JavaScript code
 </script>
+
+<!-- <script>
+    async function fetchAssistantPulseRate(value) {
+        const url = "http://127.0.0.1:5000/api/assistant-pulse-rate";
+        const payload = {
+            value: value // Replace with the actual value you want to send
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.status}, Message: ${errorResponse.message || errorResponse.error}`);
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            // Handle the successful response here
+
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle the error here
+        }
+    }
+
+    // Example usage:
+    fetchAssistantPulseRate(31); // Replace 75 with the actual value you want to send
+</script> -->
 
 </html>

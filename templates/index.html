@@ -5,51 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CA</title>
+
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* Background styling */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #0d0d0d;
+            color: #fff;
+        }
+
+        /* Profile card styling */
+        .profile-card {
+            background-color: #1c1c1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-card img {
+            margin-bottom: 12px;
+            border-radius: 100%
+        }
+
+        /* Profile photo styling */
+        .profile-photo {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 24px;
+        }
+
+        /* Text styling */
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .role,
+        .email {
+            font-size: 16px;
+            color: #b0b0b0;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .button-close {
+            background-color: #f44336;
+            color: #fff;
+            width: 100%;
+        }
+
+        .button-close:hover {
+            background-color: #d32f2f;
+        }
+
+        .button-calendar {
+            background-color: #1c1c1e;
+            color: #ffffff;
+            border: 1px solid #3e3e42;
+        }
+
+        .button-calendar:hover {
+            background-color: #333335;
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
-    <button>connect</button>
+    <div class="profile-card">
+        <img src="{{profile.photos[0].url}}" alt="User Photo">
+        <h1>{{ profile.names[0].displayName }}</h1>
+        <div>
+            <button class="button button-calendar" onclick="goToCalendar()">Go to Calendar</button>
+            <button class="button button-close" onclick="closeSession()">Close</button>
+        </div>
+
+    </div>
 </body>
 
 <script type="text/javascript">
-    var userProfile = {{ profile|safe }};
+    var userProfile = {{ profile | tojson | safe }};
     console.log(userProfile);
-    // You can now use userProfile in your JavaScript code
-</script>
 
-<!-- <script>
-    async function fetchAssistantPulseRate(value) {
-        const url = "http://127.0.0.1:5000/api/assistant-pulse-rate";
-        const payload = {
-            value: value // Replace with the actual value you want to send
-        };
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorResponse = await response.json();
-                throw new Error(`Error: ${errorResponse.status}, Message: ${errorResponse.message || errorResponse.error}`);
-            }
-
-            const data = await response.json();
-            console.log('Success:', data);
-            // Handle the successful response here
-
-        } catch (error) {
-            console.error('Error:', error);
-            // Handle the error here
+    function closeSession() {
+      fetch('/clear', {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 203) {
+          console.log(data.message); // Data cleared
+          window.close(); // Attempt to close the window (browser may block this)
         }
+        window.location.reload()
+      })
+      .catch(error => console.error('Error:', error));
     }
 
-    // Example usage:
-    fetchAssistantPulseRate(31); // Replace 75 with the actual value you want to send
-</script> -->
+    function goToCalendar() {
+      // Replace with logic to get the user's calendar URL
+      const calendarUrl = 'https://calendar.google.com/calendar/u/0/r';
+      window.location.href = calendarUrl;
+    }
+
+</script>
 
 </html>

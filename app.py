@@ -41,7 +41,7 @@ def index():
     stateApp['credentials'] = credentials_to_dict(credentials)
     # Getting info user
     profile = gettingUserInfot(credentials)
-    return flask.render_template("index.html", profile=profile)
+    return flask.render_template("index.html", profile=json.loads(profile))
 
 @app.route('/authorize')
 def authorize():
@@ -49,7 +49,7 @@ def authorize():
     flow.redirect_uri = flask.url_for('oauth2callback', _external=True)
     authorization_url, state = flow.authorization_url(
         access_type='offline',
-        include_granted_scopes='true',
+        # include_granted_scopes='true',
         prompt='select_account'
     )
 

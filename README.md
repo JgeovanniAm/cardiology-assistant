@@ -25,7 +25,7 @@ Setup pip
 Install dependencies
 
 ```bash
-  pip install -r lib.txt      
+  pip install -r requirements.txt      
 ```
 
 Start the server
